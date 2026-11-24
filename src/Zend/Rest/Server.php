@@ -395,7 +395,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
                 $this->_structValue($value, $dom, $element);
             } else {
                 $element = $dom->createElement($key);
-                $element->appendChild($dom->createTextNode($value));
+                $element->appendChild($dom->createTextNode((string) $value));
             }
 
             $parent->appendChild($element);
