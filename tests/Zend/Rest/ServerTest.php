@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Test cases for Zend_Rest_Server
@@ -29,9 +30,9 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Rest
- * @group      Zend_Rest_Server
  */
+#[Group('Zend_Rest')]
+#[Group('Zend_Rest_Server')]
 class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
 {
     protected $request;
@@ -43,6 +44,12 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
         } else {
             $this->request = $_REQUEST;
         }
+    }
+
+    public function tearDown(): void
+    {
+        // Zend_Rest_Server::__construct() registers an exception handler; remove it again.
+        restore_exception_handler();
     }
 
     public function testAddFunctionSimple()
@@ -298,6 +305,16 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
         $this->assertStringContainsString('<Zend_Rest_Server_TestFunc8 generator="zend" version="1.0"><foo>bar</foo><baz>1</baz><bat>123</bat><qux>0</qux><status>success</status></Zend_Rest_Server_TestFunc8>', $result, $result);
     }
 
+    public function testHandleReturnStructWithNullValueDoesNotRaiseDeprecation()
+    {
+        $server = new Zend_Rest_Server();
+        $server->addFunction('Zend_Rest_Server_TestFuncNull');
+        ob_start();
+        $server->handle(array('method' => 'Zend_Rest_Server_TestFuncNull'));
+        $result = ob_get_clean();
+        $this->assertStringContainsString('<foo>bar</foo><baz></baz>', $result, $result);
+    }
+
     public function testHandleReturnSimpleXml()
     {
         $server = new Zend_Rest_Server();
@@ -328,9 +345,7 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
         $this->assertStringContainsString('<foo>bar</foo>', $result, 'Bad Result');
     }
 
-    /**
-     * @group ZF-3751
-     */
+    #[Group('ZF-3751')]
     public function testHandleInvalidMethod()
     {
         $server = new Zend_Rest_Server();
@@ -466,8 +481,8 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
 
     /**
      * @see ZF-1992
-     * @group ZF-1992
      */
+    #[Group('ZF-1992')]
     public function testDefaultEncodingShouldBeUtf8()
     {
         $server = new Zend_Rest_Server();
@@ -476,8 +491,8 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
 
     /**
      * @see ZF-1992
-     * @group ZF-1992
      */
+    #[Group('ZF-1992')]
     public function testEncodingShouldBeMutableViaAccessors()
     {
         $server = new Zend_Rest_Server();
@@ -488,8 +503,8 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
 
     /**
      * @see ZF-2279
-     * @group ZF-2279
      */
+    #[Group('ZF-2279')]
     public function testNamesOfArgumentsShouldDetermineArgumentOrder()
     {
         $server = new Zend_Rest_Server();
@@ -503,9 +518,9 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
     /**
      * @see ZF-1949
      * @see ZF-7977
-     * @group ZF-1949
-     * @group ZF-7977
      */
+    #[Group('ZF-1949')]
+    #[Group('ZF-7977')]
     public function testMissingArgumentsShouldResultInFaultResponse()
     {
         $server = new Zend_Rest_Server();
@@ -519,8 +534,8 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
 
     /**
      * @see ZF-1949
-     * @group ZF-1949
      */
+    #[Group('ZF-1949')]
     public function testMissingAnonymousArgumentsWithDefaultsShouldNotResultInFaultResponse()
     {
         $server = new Zend_Rest_Server();
@@ -532,9 +547,7 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
         $this->assertStringContainsString('<response>Hello Davey, How are you today</response>', $result, var_export($result, 1));
     }
 
-    /**
-     * @group ZF-3751
-     */
+    #[Group('ZF-3751')]
     public function testCallingUnknownMethodDoesNotThrowUnknownButSpecificErrorExceptionMessage()
     {
         $server = new Zend_Rest_Server();
@@ -545,9 +558,7 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
         $this->assertStringNotContainsString('<message>An unknown error occured. Please try again.</message>', $response);
     }
 
-    /**
-     * @group ZF-3751
-     */
+    #[Group('ZF-3751')]
     public function testCallingNoMethodDoesNotThrowUnknownButSpecificErrorExceptionMessage()
     {
         $server = new Zend_Rest_Server();
@@ -558,9 +569,7 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
         $this->assertStringNotContainsString('<message>An unknown error occured. Please try again.</message>', $response);
     }
 
-    /**
-     * @group GH-187
-     */
+    #[Group('GH-187')]
     public function testMissingZeroBasedAnonymousArgumentsWithDefaultsShouldNotResultInFaultResponse()
     {
         $server = new Zend_Rest_Server();
@@ -572,9 +581,7 @@ class Zend_Rest_ServerTest extends PHPUnit\Framework\TestCase
         $this->assertStringContainsString('<response>Hello Davey, How are you today</response>', $result, var_export($result, 1));
     }
 
-    /**
-     * @group GH-187
-     */
+    #[Group('GH-187')]
     public function testMissingNamesArgumentsWithDefaultsShouldNotResultInFaultResponse()
     {
         $server = new Zend_Rest_Server();
@@ -667,6 +674,16 @@ function Zend_Rest_Server_TestFunc8()
 {
     $return = (object) array('foo' => 'bar', 'baz' => true, 'bat' => 123, 'qux' => false);
     return $return;
+}
+
+/**
+ * Return a struct containing a null value
+ *
+ * @return array
+ */
+function Zend_Rest_Server_TestFuncNull()
+{
+    return array('foo' => 'bar', 'baz' => null);
 }
 
 /**

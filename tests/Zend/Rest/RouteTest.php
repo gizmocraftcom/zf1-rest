@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Rest
  */
+#[Group('Zend_Rest')]
 class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
 {
     protected $_front;
@@ -156,9 +157,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('active', $values['status']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_GET_user_index_withParam_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('GET', '/user/index/the%2Bemail%40address/email%2Btest%40example.com');
@@ -211,9 +210,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('zend framework', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_GET_project_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('GET', '/project/email%2Btest%40example.com');
@@ -239,9 +236,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('head', $values['action']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_HEAD_project_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('HEAD', '/project/email%2Btest%40example.com');
@@ -268,9 +263,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('zendframework', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_GET_project_edit_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('GET', '/project/email%2Btest%40example.com/edit');
@@ -297,9 +290,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_PUT_user_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('PUT', '/mod/user/email%2Btest%40example.com');
@@ -338,9 +329,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_DELETE_user_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('DELETE', '/mod/user/email%2Btest%40example.com');
@@ -367,9 +356,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_POST_user_with_identifier_urlencodedWithPlusSymbol_doesPUT()
     {
         $request = $this->_buildRequest('POST', '/mod/user/email%2Btest%40example.com');
@@ -410,9 +397,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_overload_POST_with_http_header_DELETE_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('POST', '/mod/user/email%2Btest%40example.com');
@@ -447,9 +432,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $routedRequest->getParam('id'));
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulApp_route_chaining_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('GET', '/api/user/email%2Btest%40example.com');
@@ -483,9 +466,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('index', $values['action']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulModule_GET_user_index_withParam_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('GET', '/mod/user/index/the%2Bemail%40address/email%2Btest%40example.com');
@@ -513,9 +494,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('get', $values['action']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulModule_GET_user_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('GET', '/mod/user/email%2Btest%40example.com');
@@ -566,9 +545,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulModule_PUT_user_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('PUT', '/mod/user/email%2Btest%40example.com');
@@ -597,9 +574,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulModule_DELETE_user_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('DELETE', '/mod/user/email%2Btest%40example.com');
@@ -658,9 +633,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('get', $values['action']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulController_GET_user_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('GET', '/mod/user/email%2Btest%40example.com');
@@ -729,9 +702,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulController_PUT_user_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('PUT', '/mod/user/email%2Btest%40example.com');
@@ -760,9 +731,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('lcrouch', $values['id']);
     }
 
-    /**
-     * @group ZF-10964
-     */
+    #[Group('ZF-10964')]
     public function test_RESTfulController_DELETE_user_byIdentifier_urlencodedWithPlusSymbol()
     {
         $request = $this->_buildRequest('DELETE', '/mod/user/email%2Btest%40example.com');
@@ -817,9 +786,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('mod/user/index/foo/bar is n!ice', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_edit_with_module_appends_action_after_id()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -828,9 +795,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('mod/users/1/edit', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_edit_without_module_appends_action_after_id()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -839,9 +804,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('users/1/edit', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_new_with_module_appends_action()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -850,9 +813,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('mod/users/new', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_new_without_module_appends_action()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -861,9 +822,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('users/new', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_random_action_with_module_removes_action()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -872,9 +831,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertNotEquals('mod/users/newbar', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_random_action_without_module_removes_action()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -883,9 +840,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertNotEquals('users/newbar', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_with_module_honors_index_parameter_with_resource_id_and_extra_parameters()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -894,9 +849,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('mod/users/index/1/extra/parameter/another/parameter', $url);
     }
 
-    /**
-     * @group ZF-9823
-     */
+    #[Group('ZF-9823')]
     public function test_assemble_without_module_honors_index_parameter_with_resource_id_and_extra_parameters()
     {
         $route  = new Zend_Rest_Route($this->_front, array(), array());
@@ -904,9 +857,7 @@ class Zend_Rest_RouteTest extends PHPUnit\Framework\TestCase
         $url    = $route->assemble($params, false, false);
         $this->assertEquals('users/index/1/extra/parameter/another/parameter', $url);
     }
-    /**
-     * @group ZF-9115
-     */
+    #[Group('ZF-9115')]
     public function test_request_get_user_params()
     {
         $uri     = Zend_Uri::factory('http://localhost.com/user/index?a=1&b=2');

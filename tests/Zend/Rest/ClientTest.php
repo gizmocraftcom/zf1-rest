@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Test cases for Zend_Rest_Client
@@ -29,9 +30,9 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Rest
- * @group      Zend_Rest_Client
  */
+#[Group('Zend_Rest')]
+#[Group('Zend_Rest_Client')]
 class Zend_Rest_ClientTest extends PHPUnit\Framework\TestCase
 {
     protected $path;
@@ -52,13 +53,13 @@ class Zend_Rest_ClientTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @group ZF-10664
      *
      * Test that you can post a file using a preset
      * Zend_Http_Client that has a file to post,
      * by calling $restClient->setNoReset() prior to issuing the
      * restPost() call.
      */
+    #[Group('ZF-10664')]
     public function testCanPostFileInPresetHttpClient()
     {
         if (!defined('TESTS_ZEND_REST_ONLINE_ENABLED')
@@ -315,19 +316,15 @@ class Zend_Rest_ClientTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('string', $response->response());
     }
 
-    /**
-     * @group ZF-3705
-     * @group ZF-3647
-     */
+    #[Group('ZF-3705')]
+    #[Group('ZF-3647')]
     public function testInvalidXmlInClientResultLeadsToException()
     {
         $this->expectException(Zend_Rest_Client_Result_Exception::class);
         $result = new Zend_Rest_Client_Result('invalidxml');
     }
 
-    /**
-     * @group ZF-11281
-     */
+    #[Group('ZF-11281')]
     public function testCallStatusGetterOnResponseObjectWhenServerResponseHasNoStatusXmlElement()
     {
         $expXml   = file_get_contents($this->path . 'returnEmptyStatus.xml');

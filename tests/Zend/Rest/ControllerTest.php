@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -69,8 +70,8 @@ class Zend_Rest_TestController extends Zend_Rest_Controller
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Rest
  */
+#[Group('Zend_Rest')]
 class Zend_Rest_ControllerTest extends PHPUnit\Framework\TestCase
 {
     protected $_testController;
